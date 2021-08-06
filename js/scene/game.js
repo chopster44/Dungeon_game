@@ -19,7 +19,7 @@ gameScene.create = function () {
     });
     this.anims.create({
         key: 'Right',
-        frames: this.anims.generateFrameNumbers('player', { start: 3, end: 7 }),
+        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 7 }),
         frameRate: 10,
         repeat: -1
     });
@@ -37,18 +37,37 @@ gameScene.create = function () {
     });
 
     cursors = this.input.keyboard.createCursorKeys();
+    player.anims.play('Down/Idle', true);
 };
 
 gameScene.update = function () {
+    
     if (cursors.left.isDown){
         player.setVelocityX(-160);
-
+        player.setVelocityY(0);
         player.anims.play('Left', true);
     }
     
-    if (cursors.right.isDown){
+    else if (cursors.right.isDown){
         player.setVelocityX(160);
-
+        player.setVelocityY(0);
         player.anims.play('Right', true);
+    }
+
+    else if (cursors.up.isDown){
+        player.setVelocityY(-160);
+        player.setVelocityX(0);
+        player.anims.play('Up', true);
+    }
+
+    else if (cursors.down.isDown){
+        player.setVelocityY(160);
+        player.setVelocityX(0);
+        player.anims.play('Down/Idle', true);
+    }
+
+    else {
+        player.setVelocityX(0);
+        player.setVelocityY(0);
     }
 }
