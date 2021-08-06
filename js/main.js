@@ -3,7 +3,7 @@ let config = {
     width: 800,
     height: 600,
     scene: [gameScene],
-    backgroundColour: '#0000',
+    backgroundColour: '#ffff',
     pixelArt: true,
     physics: {
         default : 'arcade',
