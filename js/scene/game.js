@@ -4,8 +4,11 @@ var player;
 var coin;
 var coin_count = 0;
 var text;
+var wall_layer;
 
 gameScene.preload = function () {
+    //load tileset
+    this.load.image('dungeon_tiles', './Assets/Tiles-SandstoneDungeons.png');
     // load coin and player images
     this.load.image('single_coin', './Assets/Single_coin.png');
     this.load.spritesheet('player', './Assets/Player1_sprite_sheet.png', { frameWidth: 32, frameHeight: 32 });
@@ -13,8 +16,42 @@ gameScene.preload = function () {
 
 gameScene.create = function () {
     
+    const level1 = [
+        [  0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ]
+    ];
+
+    const map1 = this.make.tilemap({ data: level1, tileWidth: 64, tileHeight: 64 });
+    const tiles1 = map1.addTilesetImage("dungeon_tiles");
+    const layer1 = map1.createLayer(0, tiles1, 0, 0);
+    var walls = [
+        [ 18,  19,   0,   19,  20,   0,   0,   0,   0,   0,   0 ],
+        [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
+        [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
+        [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
+        [ 36,  19,  19,  19,  38,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ]
+    ];
+
+    this.walls_map = this.make.tilemap({ data: walls, tileWidth: 64, tileHeight: 64 });
+    var tiles2 = this.walls_map.addTilesetImage('tileset', "dungeon_tiles");
+    wall_layer = this.walls_map.createLayer(0, tiles2, 0, 0);
     //spawn player sprite
-    player = this.physics.add.sprite(400, 400, 'player').setScale(2);
+    player = this.physics.add.sprite(182, 160, 'player').setScale(2);
     player.setCollideWorldBounds(true);
 
     //create the animations
@@ -61,6 +98,9 @@ gameScene.create = function () {
 
     //runs collectCoin if player touches coin
     this.physics.add.overlap(player, coin, collectCoin, null, this);
+
+    wall_layer.setCollisionBetween(18, 38, true);
+    this.physics.add.collider(player, wall_layer);
 };
 
 gameScene.update = function () {
@@ -129,4 +169,5 @@ function collectCoin(player, coins) {
         });
     };
 };
+
 
