@@ -48,7 +48,6 @@ gameScene.create = function () {
         repeat: 10,
         setXY: { x: 12, y: 550  , stepX: 70 }
     });
-    //coin.setScale(2)
 
     cursors = this.input.keyboard.createCursorKeys();
     player.anims.play('Down/Idle', true);
@@ -89,14 +88,6 @@ gameScene.update = function () {
         player.setVelocityX(0);
         player.setVelocityY(0);
     };
-
-    // var collider = this.physics.collide(coin, player);
-    // if (collider) {
-    //     coin_count += 1
-    //     //coin.destroy();
-    //     this.physics.world.removeCollider(collider);
-    // }
-    // text.setText(coin_count);
 }
 
 function collectCoin(player, coins) {
@@ -111,13 +102,6 @@ function collectCoin(player, coins) {
         coin.children.iterate(function (child) {
             child.enableBody(true, child.x, 0, true, true);
         });
-
-        // var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-        // coin = this.physics.add.group({
-        //     key: 'single_coin',
-        //     repeat: 10,
-        //     setXY: { x: 12, y: 550  , stepX: 70 }
-        // });
     }
 }
 
