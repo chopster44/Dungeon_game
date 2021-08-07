@@ -5,6 +5,7 @@ var coin;
 var coin_count = 0;
 var text;
 var wall_layer;
+var floor_layer;
 
 gameScene.preload = function () {
     //load tileset
@@ -16,7 +17,8 @@ gameScene.preload = function () {
 
 gameScene.create = function () {
     
-    const level1 = [
+    //ground layer
+    const ground = [
         [  0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0 ],
         [  0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0 ],
         [  0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0 ],
@@ -29,10 +31,11 @@ gameScene.create = function () {
         [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
         [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ]
     ];
-
-    const map1 = this.make.tilemap({ data: level1, tileWidth: 64, tileHeight: 64 });
-    const tiles1 = map1.addTilesetImage("dungeon_tiles");
-    const layer1 = map1.createLayer(0, tiles1, 0, 0);
+    this.ground_map = this.make.tilemap({ data: ground, tileWidth: 64, tileHeight: 64 });
+    const tiles1 = this.ground_map.addTilesetImage('tileset1', "dungeon_tiles");
+    floor_layer = this.ground_map.createLayer(0, tiles1, 0, 0);
+    
+    //wall layer
     var walls = [
         [ 18,  19,   0,   19,  20,   0,   0,   0,   0,   0,   0 ],
         [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
@@ -46,10 +49,10 @@ gameScene.create = function () {
         [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
         [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ]
     ];
-
     this.walls_map = this.make.tilemap({ data: walls, tileWidth: 64, tileHeight: 64 });
-    var tiles2 = this.walls_map.addTilesetImage('tileset', "dungeon_tiles");
+    var tiles2 = this.walls_map.addTilesetImage('tileset2', "dungeon_tiles");
     wall_layer = this.walls_map.createLayer(0, tiles2, 0, 0);
+    
     //spawn player sprite
     player = this.physics.add.sprite(182, 160, 'player').setScale(2);
     player.setCollideWorldBounds(true);
@@ -89,6 +92,7 @@ gameScene.create = function () {
 
     //creates arrowkey controls
     cursors = this.input.keyboard.createCursorKeys();
+
     //starts Idle animation
     player.anims.play('Down/Idle', true);
 
@@ -99,6 +103,7 @@ gameScene.create = function () {
     //runs collectCoin if player touches coin
     this.physics.add.overlap(player, coin, collectCoin, null, this);
 
+    //collisions between player and walls
     wall_layer.setCollisionBetween(18, 38, true);
     this.physics.add.collider(player, wall_layer);
 };
