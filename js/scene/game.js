@@ -37,7 +37,7 @@ gameScene.create = function () {
     
     //wall layer
     var walls = [
-        [ 18,  19,   0,   19,  20,   0,   0,   0,   0,   0,   0 ],
+        [ 18,  19,   0,  19,  20,   0,   0,   0,   0,   0,   0 ],
         [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
         [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
         [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
@@ -97,7 +97,7 @@ gameScene.create = function () {
     player.anims.play('Down/Idle', true);
 
     //loads text and sets it to coin count
-    text = this.add.text(50, 50, '0', { fontSize: '16px', fill: "#ffffff"  });
+    text = this.add.text(650, 50, '0', { fontSize: '16px', fill: "#ffffff"  });
     text.setText('Coin: ' + coin_count);
 
     //runs collectCoin if player touches coin
