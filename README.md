@@ -16,7 +16,7 @@ For it I am using assets which I found on [itch.io](https://kartoy.itch.io/32x32
 ## To do list:
 1. Demo [ ]
     1. A level [ ]
-        1. 1-2 rooms [ ]
+        1. 1-2 rooms [ x ]
         2. Better controls [ ]
         3. Coin pickups [ ]
         4. Potion [ ]
