@@ -18,7 +18,7 @@ For it I am using assets which I found on [itch.io](https://kartoy.itch.io/32x32
     1. A level [ ]
         1. 1-2 rooms [ x ]
         2. Better controls [ ]
-        3. Coin pickups [ ]
+        3. Coin pickups [ x ]
         4. Potion [ ]
         5. 1 monster? [ ]
 2. 5 - 10 levels [ ]
