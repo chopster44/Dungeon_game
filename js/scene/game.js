@@ -6,6 +6,7 @@ var coin_count = 0;
 var text;
 var wall_layer;
 var floor_layer;
+var W, A, S, D, CTRL;
 
 gameScene.preload = function () {
     //load tileset
@@ -102,6 +103,7 @@ gameScene.create = function () {
 
     //creates arrowkey controls
     cursors = this.input.keyboard.createCursorKeys();
+    keyboard = this.input.keyboard.addKeys('W,S,A,D,SHIFT');
 
     //starts Idle animation
     player.anims.play('Down/Idle', true);
@@ -121,7 +123,7 @@ gameScene.create = function () {
 gameScene.update = function () {
     
     //runs animation when buttons are pressed
-    if (cursors.left.isDown){
+    if (keyboard.A.isDown){
         //movement
         player.setVelocityX(-160);
         player.setVelocityY(0);
@@ -129,7 +131,7 @@ gameScene.update = function () {
         player.anims.play('Left', true);
     }
     
-    else if (cursors.right.isDown){
+    else if (keyboard.D.isDown){
         //movement
         player.setVelocityX(160);
         player.setVelocityY(0);
@@ -137,7 +139,7 @@ gameScene.update = function () {
         player.anims.play('Right', true);
     }
 
-    else if (cursors.up.isDown){
+    else if (keyboard.W.isDown){
         //movement
         player.setVelocityY(-160);
         player.setVelocityX(0);
@@ -145,9 +147,41 @@ gameScene.update = function () {
         player.anims.play('Up', true);
     }
 
-    else if (cursors.down.isDown){
+    else if (keyboard.S.isDown){
         //movement
         player.setVelocityY(160);
+        player.setVelocityX(0);
+        //animation
+        player.anims.play('Down/Idle', true);
+    }
+
+    else if (keyboard.A.isDown && keyboard.SHIFT.isDown){
+        //movement
+        player.setVelocityX(-230);
+        player.setVelocityY(0);
+        //animation
+        player.anims.play('Left', true);
+    }
+    
+    else if (keyboard.D.isDown && keyboard.SHIFT.isDown){
+        //movement
+        player.setVelocityX(230);
+        player.setVelocityY(0);
+        //animation
+        player.anims.play('Right', true);
+    }
+
+    else if (keyboard.W.isDown && keyboard.SHIFT.isDown){
+        //movement
+        player.setVelocityY(-230);
+        player.setVelocityX(0);
+        //animation
+        player.anims.play('Up', true);
+    }
+
+    else if (keyboard.S.isDown && keyboard.SHIFT.isDown){
+        //movement
+        player.setVelocityY(230);
         player.setVelocityX(0);
         //animation
         player.anims.play('Down/Idle', true);
