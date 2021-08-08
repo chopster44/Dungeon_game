@@ -4,8 +4,10 @@ var player;
 var coin;
 var coin_count = 0;
 var text;
+var text1;
 var wall_layer;
 var floor_layer;
+var W, A, S, D, CTRL;
 
 gameScene.preload = function () {
     //load tileset
@@ -17,19 +19,23 @@ gameScene.preload = function () {
 
 gameScene.create = function () {
     
+    this.cameras.main.setBounds(0, 0, 3392, 1000);
+
     //ground layer
     const ground = [
-        [  0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ]
+        [  0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [  0,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1 ],
+        [  0,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1 ],
+        [  0,   1,   1,   1,   0,   0,   0,   0,   0,   1,   1,   1 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1 ],
+        [  0,   0,   0,   0,   0,   1,   1,   1,   1,   1,   1,   1 ],
+        [  0,   0,   0,   0,   0,   1,   1,   1,   1,   1,   1,   1 ],
+        [  0,   0,   0,   0,   0,   1,   1,   1,   1,   1,   1,   1 ],
+        [  0,   0,   0,   0,   0,   1,   1,   1,   1,   1,   1,   1 ]
     ];
     this.ground_map = this.make.tilemap({ data: ground, tileWidth: 64, tileHeight: 64 });
     const tiles1 = this.ground_map.addTilesetImage('tileset1', "dungeon_tiles");
@@ -37,17 +43,20 @@ gameScene.create = function () {
     
     //wall layer
     var walls = [
-        [ 18,  19,   0,   19,  20,   0,   0,   0,   0,   0,   0 ],
-        [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
-        [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
-        [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
-        [ 36,  19,  19,  19,  38,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-        [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ]
+        [ 18,  19,  19,  19,  20,   0,   0,   0,   0,   0,   0,   0,  0 ],
+        [ 18,   0,   0,   0,  19,  19,  19,  19,  19,  19,  19,  19, 20 ],
+        [ 18,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 20 ],
+        [ 18,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 20 ],
+        [ 18,   0,   0,   0,  47,  55,  55,  55,  45,   0,   0,   0, 20 ],
+        [ 54,  55,  55,  55,  56,   0,   0,   0,  18,   0,   0,   0, 20 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,  18,   0,   0,   0, 20 ],
+        [  0,   0,   0,   0,   0,   0,   0,   0,  18,   0,   0,   0, 20 ],
+        [  0,   0,   0,   0,  18,  19,  19,  19,  19,   0,   0,   0, 20 ],
+        [  0,   0,   0,   0,  18,   0,   0,   0,   0,   0,   0,   0, 20 ],
+        [  0,   0,   0,   0,  18,   0,   0,   0,   0,   0,   0,   0, 20 ],
+        [  0,   0,   0,   0,  18,   0,   0,   0,   0,   0,   0,   0, 20 ],
+        [  0,   0,   0,   0,  18,   0,   0,   0,   0,   0,   0,   0, 20 ],
+        [  0,   0,   0,   0,  54,  55,  55,  55,  55,  55,  55,  55, 56 ]
     ];
     this.walls_map = this.make.tilemap({ data: walls, tileWidth: 64, tileHeight: 64 });
     var tiles2 = this.walls_map.addTilesetImage('tileset2', "dungeon_tiles");
@@ -55,7 +64,8 @@ gameScene.create = function () {
     
     //spawn player sprite
     player = this.physics.add.sprite(182, 160, 'player').setScale(2);
-    player.setCollideWorldBounds(true);
+    // Stops player from colliding from world bounds
+    player.setCollideWorldBounds(false);
 
     //create the animations
     this.anims.create({
@@ -86,32 +96,36 @@ gameScene.create = function () {
     //spawns the first set of coins
     coin = this.physics.add.group({
         key: 'single_coin',
-        repeat: 10,
-        setXY: { x: 12, y: 550  , stepX: 70 }
+        //spawns coin twice
+        repeat: 2,
+        // at these positions
+        setXY: { x: 100, y: 160  , stepX: 300 }
     });
 
     //creates arrowkey controls
     cursors = this.input.keyboard.createCursorKeys();
+    keyboard = this.input.keyboard.addKeys('W,S,A,D,SHIFT');
 
     //starts Idle animation
     player.anims.play('Down/Idle', true);
 
     //loads text and sets it to coin count
-    text = this.add.text(50, 50, '0', { fontSize: '16px', fill: "#ffffff"  });
+    text = this.add.text(350, 30, '0', { fontSize: '16px', fill: "#ffffff"  });
+    text1 = this.add.text(50, 400, 'This game is in early development and does not\nproperly display the finished product.\nIf you find any bugs please report the on github!\nEnjoy this small demo!', { fontSize: '16px', fill: "#FF2D00"  })
     text.setText('Coin: ' + coin_count);
 
     //runs collectCoin if player touches coin
     this.physics.add.overlap(player, coin, collectCoin, null, this);
 
     //collisions between player and walls
-    wall_layer.setCollisionBetween(18, 38, true);
+    wall_layer.setCollisionBetween(18, 59, true);
     this.physics.add.collider(player, wall_layer);
 };
 
 gameScene.update = function () {
     
     //runs animation when buttons are pressed
-    if (cursors.left.isDown){
+    if (keyboard.A.isDown){
         //movement
         player.setVelocityX(-160);
         player.setVelocityY(0);
@@ -119,7 +133,7 @@ gameScene.update = function () {
         player.anims.play('Left', true);
     }
     
-    else if (cursors.right.isDown){
+    else if (keyboard.D.isDown){
         //movement
         player.setVelocityX(160);
         player.setVelocityY(0);
@@ -127,7 +141,7 @@ gameScene.update = function () {
         player.anims.play('Right', true);
     }
 
-    else if (cursors.up.isDown){
+    else if (keyboard.W.isDown){
         //movement
         player.setVelocityY(-160);
         player.setVelocityX(0);
@@ -135,9 +149,41 @@ gameScene.update = function () {
         player.anims.play('Up', true);
     }
 
-    else if (cursors.down.isDown){
+    else if (keyboard.S.isDown){
         //movement
         player.setVelocityY(160);
+        player.setVelocityX(0);
+        //animation
+        player.anims.play('Down/Idle', true);
+    }
+
+    else if (keyboard.A.isDown && keyboard.SHIFT.isDown){
+        //movement
+        player.setVelocityX(-230);
+        player.setVelocityY(0);
+        //animation
+        player.anims.play('Left', true);
+    }
+    
+    else if (keyboard.D.isDown && keyboard.SHIFT.isDown){
+        //movement
+        player.setVelocityX(230);
+        player.setVelocityY(0);
+        //animation
+        player.anims.play('Right', true);
+    }
+
+    else if (keyboard.W.isDown && keyboard.SHIFT.isDown){
+        //movement
+        player.setVelocityY(-230);
+        player.setVelocityX(0);
+        //animation
+        player.anims.play('Up', true);
+    }
+
+    else if (keyboard.S.isDown && keyboard.SHIFT.isDown){
+        //movement
+        player.setVelocityY(230);
         player.setVelocityX(0);
         //animation
         player.anims.play('Down/Idle', true);
@@ -148,6 +194,8 @@ gameScene.update = function () {
         player.setVelocityX(0);
         player.setVelocityY(0);
     };
+    //camera follows player
+    this.cameras.main.startFollow(player);
 }
 
 function collectCoin(player, coins) {
@@ -161,18 +209,21 @@ function collectCoin(player, coins) {
     //spawns new coins
     if (coin.countActive(true) === 0)
     {
+        
+        text.setText('All coins have been collected!');
+
         //creates more coins
 
-        coin.children.iterate(function (child) {
-            //The first comment spawns them on the top row
-            //child.enableBody(true, child.x, 0, true, true);
+        // coin.children.iterate(function (child) {
+        //     //The first comment spawns them on the top row
+        //     //child.enableBody(true, child.x, 0, true, true);
             
-            //The second spawns 1 coin in the corect place 
-            //child.enableBody(true, 12, 550, true, true);
-
-            child.enableBody(true, child.x, 550, true, true);
-        });
+        //     //The second spawns 1 coin in the corect place 
+        //     //child.enableBody(true, 12, 550, true, true);
+            
+        //     // Spawns new coins on Y axis
+        //     child.enableBody(true, child.x - 10, child.y, true, true);
+        // });
     };
 };
-
 

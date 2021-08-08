@@ -17,10 +17,15 @@ For it I am using assets which I found on [itch.io](https://kartoy.itch.io/32x32
 1. Demo [ ]
     1. A level [ ]
         1. 1-2 rooms [ x ]
+<<<<<<< HEAD
         2. Better controls [ ]
         3. Coin pickups [ x ]
         4. Potion [ ]
         5. 1 monster? [ ]
+=======
+        2. Better controls [ x ]
+        3. Coin pickups [ x ]
+>>>>>>> DevBranch
 2. 5 - 10 levels [ ]
     1. Doors [ ]
     2. Coins [ ]

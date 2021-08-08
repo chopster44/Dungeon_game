@@ -1,7 +1,7 @@
 let config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 700,
+    height: 500,
     scene: [gameScene],
     backgroundColour: '#ffff',
     pixelArt: true,
