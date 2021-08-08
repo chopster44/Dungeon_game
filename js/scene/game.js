@@ -95,9 +95,9 @@ gameScene.create = function () {
     coin = this.physics.add.group({
         key: 'single_coin',
         //spawns coin twice
-        repeat: 1,
+        repeat: 2,
         // at these positions
-        setXY: { x: 100, y: 160  , stepY: 450, stepX: 300 }
+        setXY: { x: 100, y: 160  , stepX: 300 }
     });
 
     //creates arrowkey controls
