@@ -37,9 +37,9 @@ gameScene.create = function () {
     
     //wall layer
     var walls = [
-        [ 18,  19,   0,  19,  20,   0,   0,   0,   0,   0,   0 ],
-        [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
-        [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
+        [ 18,  19,   0,  19,  20,   0,   0,   0,   0,   0,   1 ],
+        [ 18,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+        [ 18,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
         [ 18,   0,   0,   0,  20,   0,   0,   0,   0,   0,   0 ],
         [ 36,  19,  19,  19,  38,   0,   0,   0,   0,   0,   0 ],
         [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
@@ -55,7 +55,8 @@ gameScene.create = function () {
     
     //spawn player sprite
     player = this.physics.add.sprite(182, 160, 'player').setScale(2);
-    player.setCollideWorldBounds(true);
+    // Stops player from colliding from world bounds
+    player.setCollideWorldBounds(false);
 
     //create the animations
     this.anims.create({
@@ -86,8 +87,10 @@ gameScene.create = function () {
     //spawns the first set of coins
     coin = this.physics.add.group({
         key: 'single_coin',
-        repeat: 10,
-        setXY: { x: 12, y: 550  , stepX: 70 }
+        //spawns coin twice
+        repeat: 1,
+        // at these positions
+        setXY: { x: 100, y: 160  , stepY: 200 }
     });
 
     //creates arrowkey controls
@@ -148,6 +151,8 @@ gameScene.update = function () {
         player.setVelocityX(0);
         player.setVelocityY(0);
     };
+    //camera follows player
+    this.cameras.main.startFollow(player);
 }
 
 function collectCoin(player, coins) {
@@ -169,10 +174,10 @@ function collectCoin(player, coins) {
             
             //The second spawns 1 coin in the corect place 
             //child.enableBody(true, 12, 550, true, true);
-
-            child.enableBody(true, child.x, 550, true, true);
+            
+            // Spawns new coins on Y axis
+            child.enableBody(true, 100, child.y, true, true);
         });
     };
 };
-
 
