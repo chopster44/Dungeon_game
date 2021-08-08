@@ -4,6 +4,7 @@ var player;
 var coin;
 var coin_count = 0;
 var text;
+var text1;
 var wall_layer;
 var floor_layer;
 var W, A, S, D, CTRL;
@@ -109,7 +110,8 @@ gameScene.create = function () {
     player.anims.play('Down/Idle', true);
 
     //loads text and sets it to coin count
-    text = this.add.text(650, 50, '0', { fontSize: '16px', fill: "#ffffff"  });
+    text = this.add.text(350, 30, '0', { fontSize: '16px', fill: "#ffffff"  });
+    text1 = this.add.text(50, 400, 'This game is in early development and does not\nproperly display the finished product.\nIf you find any bugs please report the on github!\nEnjoy this small demo!', { fontSize: '16px', fill: "#FF2D00"  })
     text.setText('Coin: ' + coin_count);
 
     //runs collectCoin if player touches coin
