@@ -97,7 +97,7 @@ gameScene.create = function () {
         //spawns coin twice
         repeat: 1,
         // at these positions
-        setXY: { x: 100, y: 160  , stepY: 200 }
+        setXY: { x: 100, y: 160  , stepY: 450, stepX: 300 }
     });
 
     //creates arrowkey controls
@@ -173,18 +173,21 @@ function collectCoin(player, coins) {
     //spawns new coins
     if (coin.countActive(true) === 0)
     {
+        
+        text.setText('All coins have been collected!');
+
         //creates more coins
 
-        coin.children.iterate(function (child) {
-            //The first comment spawns them on the top row
-            //child.enableBody(true, child.x, 0, true, true);
+        // coin.children.iterate(function (child) {
+        //     //The first comment spawns them on the top row
+        //     //child.enableBody(true, child.x, 0, true, true);
             
-            //The second spawns 1 coin in the corect place 
-            //child.enableBody(true, 12, 550, true, true);
+        //     //The second spawns 1 coin in the corect place 
+        //     //child.enableBody(true, 12, 550, true, true);
             
-            // Spawns new coins on Y axis
-            child.enableBody(true, 100, child.y, true, true);
-        });
+        //     // Spawns new coins on Y axis
+        //     child.enableBody(true, child.x - 10, child.y, true, true);
+        // });
     };
 };
 
