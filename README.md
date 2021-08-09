@@ -15,8 +15,8 @@ I have released on [itch.io](https://chopster44.itch.io/dungon-game) for you to 
     3. Coin spawning
 
 ## To do list:
-1. Demo [ ]
-    1. A level [ ]
+1. Demo [ x ]
+    1. A level [ x ]
         1. 1-2 rooms [ x ]
         2. Better controls [ x ]
         3. Coin pickups [ x ]
