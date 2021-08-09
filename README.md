@@ -2,6 +2,7 @@
 
 This is my a top down dungeon game I am making at the moment using the [Phaser 3 javascript library](https://github.com/photonstorm/phaser)!
 For it I am using assets which I found on [itch.io](https://kartoy.itch.io/32x32sandstone-dungeon-and-character-pack) by [kartoy](https://kartoy.itch.io)
+I have released on [itch.io](https://chopster44.itch.io/dungon-game) for you to Play!
 
 
 ## Recent edits!
